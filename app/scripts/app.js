@@ -4,18 +4,18 @@
 require('./factories');
 require('./controllers');
 
- var app = angular.module('BlocChat', [
+ angular.module('BlocChat', [
   'ui.router',
-  'firebase', 
+  'firebase',
   'BlocChat.factories',
   'BlocChat.controllers'
   ])
   .config(['$stateProvider', function($stateProvider){
-  //  $locationProvider.html5mode(true);
+      //$locationProvider.html5mode(true);
 
-       $stateProvider.state('home', {
-         url: '/',
-         controller: 'RoomsCtrl',
-         templateUrl: 'templates/home.html'
-       });
-    }]);
+      $stateProvider.state('home', {
+        url: '/',
+        controller: 'RoomsCtrl',
+        templateUrl: '/templates/home.html'
+      });
+  }]);

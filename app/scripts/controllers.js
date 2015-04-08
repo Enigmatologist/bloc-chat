@@ -1,5 +1,6 @@
 angular.module('BlocChat.controllers', [])
-  .controller('RoomCtrl', ['$scope', 'Room', function($scope, Room){
+  .controller('RoomsCtrl', ['$scope', 'Room', function($scope, Room){
 
+    $scope.rooms = Room.all;
     
   }]);
