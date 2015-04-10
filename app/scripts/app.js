@@ -10,12 +10,12 @@ require('./controllers');
   'BlocChat.factories',
   'BlocChat.controllers'
   ])
-  .config(['$stateProvider', function($stateProvider){
-      //$locationProvider.html5mode(true);
+  .config(['$locationProvider', '$stateProvider', function($locationProvider, $stateProvider){
+      $locationProvider.html5Mode(true);
 
       $stateProvider.state('home', {
         url: '/',
         controller: 'RoomsCtrl',
-        templateUrl: '/templates/home.html'
+        templateUrl: 'templates/home.html'
       });
   }]);
