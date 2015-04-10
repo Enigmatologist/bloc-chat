@@ -1,0 +1,22 @@
+body {
+  overflow: hidden;
+}
+
+/* Room Styles */
+.rooms-list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  width: 25%;
+  padding: 16px;
+  background-color: rgb(230,230,230);
+}
+
+.room-item {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  -webkit-font-smoothing: antialiased;
+  cursor: pointer;
+}
