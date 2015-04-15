@@ -7,6 +7,7 @@ require('./controllers');
  angular.module('BlocChat', [
   'ui.router',
   'firebase',
+  'ui.bootstrap',
   'BlocChat.factories',
   'BlocChat.controllers'
   ])

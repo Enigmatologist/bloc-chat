@@ -1,6 +1,11 @@
 <aside class="rooms-list">
-  <h4>Bloc Chatrooms</h4>
-  <div class="room-item" ng-repeat="room in rooms">
+  <h4>Bloc Chatrooms
+    <button type="button" class="btn btn-primary" ng-click="openCreateRoomModal()">New Room</button>
+  </h4>
+  <div class="room-item" ng-repeat="room in rooms" ng-click="setCurrentRoom(room)">
     {{ room.name}}
   </div>
 </aside>
+<section class="room-main-view">
+  <h3 class="main-view-title"> {{ currentRoom.name }}</h3>
+</section>
