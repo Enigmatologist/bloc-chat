@@ -8,11 +8,14 @@
 </aside>
 <section class="room-main-view" ng-show="currentRoom">
   <h3 class="main-view-title"> {{ currentRoom.name }}</h3>
-  <div class="msg-item" ng-repeat="msg in messages" ng-class-odd="msg-item-odd">
+  <div class="msg-item" ng-repeat="msg in currentRoom.messages" ng-class-odd="msg-item-odd">
     <h6> {{ msg.userName }} </h6>
     <p> {{ msg.content }} </p>
   </div>
   <div class="new-msg-box">
-    <textarea placeholder="Begin Chatting Here..." class="new-msg-input"></textarea>
-    <button type="button" class="new-msg-button btn btn-primary relative-button-height">Submit</button>
+    <form ng-submit="sendMessage()">
+      <textarea placeholder="Begin Chatting Here..." class="new-msg-input" ng-model="newMessage.content"></textarea>
+      <button type="submit" class="new-msg-button btn btn-primary relative-button-height">Submit</button>
+    </form>
+  </div>    
 </section>
