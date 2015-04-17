@@ -1,11 +1,13 @@
 angular.module('BlocChat.controllers', [])
-  .controller('RoomsCtrl', ['$scope', 'sampleRooms', '$modal', function($scope, sampleRooms, $modal){
+  .controller('RoomsCtrl', ['$scope', 'Room', '$modal', 'Message', '$cookies', function($scope, Room, $modal, Message, $cookies){
 
-    $scope.rooms = sampleRooms;
-    $scope.currentRoom = $scope.rooms[0];
+    $scope.messages = [];
+    $scope.rooms = Room.all;
+    $scope.currentRoom = {};
 
     $scope.setCurrentRoom = function(room) {
       $scope.currentRoom = room;
+      $scope.messages = Room.messages($scope.currentRoom.$id);
     }
 
     $scope.openCreateRoomModal = function(){
@@ -18,35 +20,42 @@ angular.module('BlocChat.controllers', [])
 
     $scope.sendMessage = function() {
         
+      if(!$scope.newMessage.content || $scope.newMessage.conent !== '') {
+
         var newMessage = {
-          userName: "Toby Castro",
+          userName: $cookies.blocChatCurrentUser,
+          roomId: $scope.currentRoom.$id,
           content: $scope.newMessage.content,
-          createdAt: new Date(), 
+          createdAt: new Date()
         }
 
-        $scope.currentRoom.messages.push(newMessage);
+        Message.send(newMessage).then(function(){
+          $scope.newMessage = {};
+        })
 
-        $scope.newMessage = {};
       }
+      else{
+        alert("Message is undefined");
+      }
+
+    }
 
   }])
 
-  .controller('CreateRoomCtrl', ['$scope', 'sampleRooms', '$modalInstance', function($scope, sampleRooms, $modalInstance){
+  .controller('CreateRoomCtrl', ['$scope', '$modalInstance', 'Room', function($scope, $modalInstance, Room){
 
     $scope.newRoom = {};
 
     $scope.createNewRoom = function(){
       if(!$scope.newRoom.name || $scope.newRoom.name !== ''){
         var newRoom = {
-          name: $scope.newRoomName.name,
-          messages: []
+          name: $scope.newRoomName
         };
 
-        sampleRooms.push(newRoom);
-
-        $scope.newRoom.name = '';
-
-        $modalInstance.close();
+        Room.create(newRoom).then(function(){
+          $scope.newRoom.name = '';
+          $modalInstance.close();
+        });
         
       }
 
@@ -60,7 +69,22 @@ angular.module('BlocChat.controllers', [])
     }
   }])
 
+  .controller('SetCurrentUserCtrl', ['$scope', '$modalInstance', '$cookies', function($scope, $modalInstance, $cookies){
 
+    $scope.setCurrentUser = function() {
+
+      if($scope.newCurrentUser && $scope.newCurrentUser !== ''){
+
+        $cookies.blocChatCurrentUser = $scope.newCurrentUser;
+        $modalInstance.close();
+
+      }
+      else{
+        alert("Please enter your user name");
+      }
+    }
+    
+  }])
 
 
 
