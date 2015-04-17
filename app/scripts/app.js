@@ -8,6 +8,7 @@ require('./controllers');
  angular.module('BlocChat', [
   'ui.router',
   'firebase',
+  'ngCookies',
   'ui.bootstrap',
   'BlocChat.factories',
   'BlocChat.samples',
@@ -21,4 +22,23 @@ require('./controllers');
         controller: 'RoomsCtrl',
         templateUrl: 'templates/home.html'
       });
-  }]);
+  }])
+
+  .run(['$cookies', '$modal', function($cookies, $modal){
+
+    if(!$cookies.blocChatCurrentUser || $cookies.blocChatCurrentUser === ''){
+
+      $modal.open({
+        templateUrl: 'templates/set_current_user.modal.html',
+        controller: 'SetCurrentUserCtrl',
+        size: 'sm'
+      })
+
+    }
+    
+  }])
+
+
+
+
+
