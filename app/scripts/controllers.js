@@ -1,13 +1,11 @@
 angular.module('BlocChat.controllers', [])
-  .controller('RoomsCtrl', ['$scope', 'Room', '$modal', 'Message', function($scope, Room, $modal, Message){
+  .controller('RoomsCtrl', ['$scope', 'sampleRooms', '$modal', function($scope, sampleRooms, $modal){
 
-    $scope.messages = [];
-    $scope.rooms = Room.all;
-    $scope.currentRoom = {};
+    $scope.rooms = sampleRooms;
+    $scope.currentRoom = $scope.rooms[0];
 
     $scope.setCurrentRoom = function(room) {
       $scope.currentRoom = room;
-      $scope.messages = Room.messages($scope.currentRoom.$id);
     }
 
     $scope.openCreateRoomModal = function(){
@@ -19,40 +17,37 @@ angular.module('BlocChat.controllers', [])
     }
 
     $scope.sendMessage = function() {
-      if(!scope.newMessage.content || $scope.newMessage.content !== ''){
         
         var newMessage = {
           userName: "Toby Castro",
           content: $scope.newMessage.content,
-          createdAt: new Date(),
-          roomId: $scope.currentRoom.$id 
+          createdAt: new Date(), 
         }
 
-        Message.send(newMessage).then(function(){
+        $scope.currentRoom.messages.push(newMessage);
+
         $scope.newMessage = {};
-        })
       }
-      else {
-        alert('Please input a message');
-      }
-    }
 
   }])
 
-  .controller('CreateRoomCtrl', ['$scope', '$modalInstance', 'Room', function($scope, $modalInstance, Room){
+  .controller('CreateRoomCtrl', ['$scope', 'sampleRooms', '$modalInstance', function($scope, sampleRooms, $modalInstance){
 
     $scope.newRoom = {};
 
     $scope.createNewRoom = function(){
       if(!$scope.newRoom.name || $scope.newRoom.name !== ''){
         var newRoom = {
-          name: $scope.newRoomName
+          name: $scope.newRoomName.name,
+          messages: []
         };
 
-        Room.create(newRoom).then(function(){
-          $scope.newRoom.name = '';
-          $modalInstance.close();
-        });
+        sampleRooms.push(newRoom);
+
+        $scope.newRoom.name = '';
+
+        $modalInstance.close();
+        
       }
 
       else{

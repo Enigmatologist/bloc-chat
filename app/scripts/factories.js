@@ -38,7 +38,7 @@ angular.module('BlocChat.factories',[])
     return room;
   }])
 
-  .constant('FIREBASE_URL', 'https://fiery-torch-7994.firebaseio.com')
+
 
 
 

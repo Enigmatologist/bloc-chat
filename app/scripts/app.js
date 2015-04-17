@@ -1,6 +1,7 @@
 'use strict';
 
 //External JS files included in app.js
+require('./samples');
 require('./factories');
 require('./controllers');
 
@@ -9,6 +10,7 @@ require('./controllers');
   'firebase',
   'ui.bootstrap',
   'BlocChat.factories',
+  'BlocChat.samples',
   'BlocChat.controllers'
   ])
   .config(['$locationProvider', '$stateProvider', function($locationProvider, $stateProvider){
